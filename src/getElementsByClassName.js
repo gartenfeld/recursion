@@ -11,19 +11,17 @@ var getElementsByClassName = function(className){
     return outArr;
 };
 
-var explore = function(node, selector, accum){
-
-    checkClass(node, selector);
-
+var explore = function(node, selector){
+    check(node, selector);
     for (var i=0; i<node.childNodes.length; i++) {
-        checkClass(node.childNodes[i], selector);
+        check(node.childNodes[i], selector);
         if (node.childNodes[i].childElementCount) {
             explore(node.childNodes[i], selector);
         }
     }
 };
 
-var checkClass = function(node, selector){
+var check = function(node, selector){
     if ( node.classList ) {
         if ( node.classList.contains(selector) ) {
             outArr.push(node);
