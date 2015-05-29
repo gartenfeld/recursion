@@ -5,26 +5,27 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className){
-    // your code here
-    outArr = [];
-    explore(document.body, className);
-    return outArr;
-};
 
-var explore = function(node, selector){
-    check(node, selector);
-    for (var i=0; i<node.childNodes.length; i++) {
-        check(node.childNodes[i], selector);
-        if (node.childNodes[i].childElementCount) {
-            explore(node.childNodes[i], selector);
-        }
-    }
-};
+    var output = [],
 
-var check = function(node, selector){
-    if ( node.classList ) {
-        if ( node.classList.contains(selector) ) {
-            outArr.push(node);
-        }
-    }
+        explore = function (node) {
+            for (var i=0; i<node.childNodes.length; i++) {
+                check(node.childNodes[i]);
+                if (node.childNodes[i].childElementCount) {
+                    explore(node.childNodes[i]);
+                }
+            }
+        },
+
+        check = function (node) {
+            if ( node.classList && node.classList.contains(className) ) {
+                output.push(node);
+            }
+        };
+
+    check(document.body);
+    explore(document.body);
+
+    return output;
+
 };
